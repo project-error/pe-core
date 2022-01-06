@@ -2,7 +2,7 @@
 
 Database                    = {}
 Database.identifierType     = 'license'
-Database.identifierColumn   = 'user_identifier'
+Database.identifierColumn   = 'identifier'
 Database.playerTable        = 'users'
 
 -- Debug Config
