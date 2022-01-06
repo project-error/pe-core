@@ -41,7 +41,6 @@ AddEventHandler('pe-core:onPlayerJoined', function()
 end)
 
 AddEventHandler('pe-core:playerLoaded', function(playerId, identifier)
-    local playerId <const> = source
     local player = Player(playerId)
 
     Utils.Debug('success', "Player ["..playerId.."] has been loaded.")
