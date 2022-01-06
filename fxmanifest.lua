@@ -10,10 +10,15 @@ lua54 'yes'
 
 use_fxv2_oal 'yes'
 
+server_scripts {
+    '@oxmysql/lib/MySQL.lua',
+	'config/sv_config.lua',
+	'server/shared/*.lua',
+	'server/*.lua',
+}
+
 client_scripts {
     'client/*.lua'
 }
 
-server_scripts {
-    'server/*.lua'
-}
+dependency 'oxmysql'
