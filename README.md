@@ -38,8 +38,8 @@ Alter your [config.json](https://github.com/project-error/npwd/blob/master/confi
 ```json
   "database": {
     "useIdentifierPrefix": true,
-    "playerTable": "pe_characters",
-    "identifierColumn": "user_identifier",
+    "playerTable": "users",
+    "identifierColumn": "identifier",
     "identifierType": "license",
     "profileQueries": true,
     "phoneNumberColumn": "phone_number"
@@ -48,7 +48,7 @@ Alter your [config.json](https://github.com/project-error/npwd/blob/master/confi
 There is **no** need to enable: `useResourceIntegration`. This should remain false.
 
 ### Debug Mode
-This strictly controls the prints you recieve within the sevrer console. The level ranges from 0 to 3.
+This strictly controls the prints you recieve within the server console. The level ranges from 0 to 3.
 
 You can use it by doing:
 ```lua

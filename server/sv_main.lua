@@ -43,6 +43,6 @@ end)
 AddEventHandler('pe-core:playerLoaded', function(playerId, identifier)
     local player = Player(playerId)
 
-    Utils.Debug('success', "Player ["..playerId.."] has been loaded.")
     player.state:set('loaded', true, false)
+    Utils.Debug('success', "Player ["..playerId.."] has been loaded.")
 end)
