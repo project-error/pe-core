@@ -1,9 +1,10 @@
 # pe-core
 ## THIS IS NOT A FULL FRAMEWORK!
-This **purely** exist as a way to insert identifier data when a player joins a server. Strictly to provide compatability with those who use menu based servers and don't want to add unnececary frameworks to accomplish this.
+This **purely** exist as a way to insert identifier data when a player joins a server. Strictly to provide compatability with [NPWD](https://github.com/project-error/npwd) for those who use menu based servers and don't want to add unnecessary frameworks to store identifiers.
 
 ### Dependencies
 While this is a simple resource, it does require a single depency as found below:
+
 - [oxmysql](https://github.com/overextended/oxmysql)
 
 ### Setting Your Database
@@ -30,3 +31,33 @@ set mysql_connection_string "mysql://root:12345@localhost/pe-core?charset=utf8mb
 ```
 
 3. Run the `pe-core.sql`
+
+### Debug Mode
+This strictly controls the prints you recieve within the sevrer console. The level ranges from 0 to 3.
+
+You can use it by doing:
+```lua
+Utils.Debug('error'--[[the debug class]], "hello"--[[message]])
+```
+Configuration is as followed:
+- `Debug.debugLevel`
+    - Default value = 1
+    - 0 = Disabled (Not Recomended)
+    - 1 = Only errors
+    - 2 = Errors and Success
+    - 3 = Errors, Success and Informs (Everything)
+- Debug Classes:
+    - `"Error"`
+    - `"Success"`
+    - `"Inform"`
+- Debug Colors:
+    - `"^0"` = White
+    - `"^1"` = Red
+    - `"^2"` = Green
+    - `"^3"` = Yellow
+    - `"4"` = Blue
+    - `"^5"` = Light Blue
+    - `"^6"` = Purple
+    - `"^7"` = Default
+    - `"^8"` = Dark Red
+    - `"^9"` = Dark Blue
