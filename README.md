@@ -32,6 +32,21 @@ set mysql_connection_string "mysql://root:12345@localhost/pe-core?charset=utf8mb
 
 3. Run the `pe-core.sql`
 
+### NPWD Integration
+
+Alter your [config.json](https://github.com/project-error/npwd/blob/master/config.json) to match the following:
+```json
+  "database": {
+    "useIdentifierPrefix": true,
+    "playerTable": "pe_characters",
+    "identifierColumn": "user_identifier",
+    "identifierType": "license",
+    "profileQueries": true,
+    "phoneNumberColumn": "phone_number"
+  },
+```
+There is **no** need to enable: `useResourceIntegration`. This should remain false.
+
 ### Debug Mode
 This strictly controls the prints you recieve within the sevrer console. The level ranges from 0 to 3.
 
