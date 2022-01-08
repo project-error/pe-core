@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `pe-core`;
-
-USE `pe-core`;
-
 CREATE TABLE `users` (
     `character_id` int NOT NULL AUTO_INCREMENT,
     `identifier` VARCHAR(60) NOT NULL,
