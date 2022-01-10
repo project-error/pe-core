@@ -22,17 +22,13 @@ AddEventHandler('pe-core:onPlayerJoined', function()
         return 
     end
     Utils.Debug('success', "Player ["..playerId.."] has joined the server.")
-    exports.oxmysql:scalar('SELECT 1 FROM '..Database.playerTable..' WHERE '..Database.identifierColumn..' = @identifier', {
-        ['identifier']   = identifier,
-    }, function(result)
+    MySQL.scalar('SELECT 1 FROM ?? WHERE ?? = ?', {Database.playerTable, Database.identifierColumn, identifier}, function(result)
         if result then
             TriggerEvent('pe-core:playerLoaded', playerId, identifier)
         else
             Utils.Debug('inform', "Identifier ["..identifier.."] doesn't exist into the database.")
             Utils.Debug('inform', "Inserting identifier ["..identifier.."] into the database.")
-            exports.oxmysql:insert('INSERT INTO '..Database.playerTable..' ('..Database.identifierColumn..') VALUES (@identifier)', {
-                ['identifier']   = identifier,
-            }, function(character_id)
+            MySQL.insert('INSERT INTO ?? (??) VALUES (?)', {Database.playerTable, Database.identifierColumn, identifier}, function(character_id)
                 Utils.Debug('inform', "Inserted player into the database: {\n Identifier ["..identifier.."] \n Character ID ["..character_id.."] \n}")
                 TriggerEvent('pe-core:playerLoaded', playerId, identifier)
             end)
