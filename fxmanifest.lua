@@ -21,4 +21,7 @@ client_scripts {
     'client/*.lua'
 }
 
-dependency 'oxmysql'
+dependencies{
+    'spawnmanager',
+    'oxmysql',
+}

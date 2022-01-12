@@ -22,14 +22,28 @@ AddEventHandler('pe-core:onPlayerJoined', function()
         return 
     end
     Utils.Debug('success', "Player ["..playerId.."] has joined the server.")
-    MySQL.scalar('SELECT 1 FROM ?? WHERE ?? = ?', {Database.playerTable, Database.identifierColumn, identifier}, function(result)
+    MySQL.single('SELECT * FROM ?? WHERE ?? = ?', {Database.playerTable, Database.identifierColumn, identifier}, function(result)
         if result then
+            if GetResourceState('npwd') == 'started' then
+                Utils.Debug('inform', 'NPWD enabled. Triggering server export ^2[npwd:newPlayer]^5.')
+                exports.npwd:newPlayer({ 
+					source 		= playerId, 
+					identifier 	= character_id,
+                    phoneNumber = result.phone_number
+				})
+            end
             TriggerEvent('pe-core:playerLoaded', playerId, identifier)
         else
             Utils.Debug('inform', "Identifier ["..identifier.."] doesn't exist into the database.")
             Utils.Debug('inform', "Inserting identifier ["..identifier.."] into the database.")
-            MySQL.insert('INSERT INTO ?? (??) VALUES (?)', {Database.playerTable, Database.identifierColumn, identifier}, function(character_id)
+            local phoneNumber = exports.npwd:generatePhoneNumber()
+            MySQL.insert('INSERT INTO ?? (??,??) VALUES (?,?)', {Database.playerTable, Database.identifierColumn, 'phone_number', identifier, phoneNumber}, function(character_id)
                 Utils.Debug('inform', "Inserted player into the database: {\n Identifier ["..identifier.."] \n Character ID ["..character_id.."] \n}")
+                exports.npwd:newPlayer({ 
+					source 		= playerId, 
+					identifier 	= character_id,
+                    phoneNumber = phoneNumber
+				})
                 TriggerEvent('pe-core:playerLoaded', playerId, identifier)
             end)
         end
@@ -38,7 +52,11 @@ end)
 
 AddEventHandler('pe-core:playerLoaded', function(playerId, identifier)
     local player = Player(playerId)
+    local position = json.decode(Config.defaultSpawn)
 
     player.state:set('loaded', true, false)
     Utils.Debug('success', "Player ["..playerId.."] has been loaded.")
+    if Config.useSpawn then
+        TriggerClientEvent('pe-core:spawnPlayer', playerId, position.x, position.y, position.z, position.w, Config.defaultModel)
+    end
 end)

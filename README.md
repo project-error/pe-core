@@ -36,6 +36,11 @@ set mysql_connection_string "mysql://root:12345@localhost/pe-core?charset=utf8mb
 
 Alter your [config.json](https://github.com/project-error/npwd/blob/master/config.json) to match the following:
 ```json
+  "general": {
+    "useResourceIntegration": true,
+    "toggleKey": "f1",
+    "toggleCommand": "phone"
+  },
   "database": {
     "useIdentifierPrefix": true,
     "playerTable": "users",
@@ -45,7 +50,6 @@ Alter your [config.json](https://github.com/project-error/npwd/blob/master/confi
     "phoneNumberColumn": "phone_number"
   },
 ```
-There is **no** need to enable: `useResourceIntegration`. This should remain false.
 
 ### Debug Mode
 This strictly controls the prints you recieve within the server console. The level ranges from 0 to 3.
