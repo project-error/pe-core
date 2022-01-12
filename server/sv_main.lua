@@ -29,21 +29,23 @@ AddEventHandler('pe-core:onPlayerJoined', function()
                 exports.npwd:newPlayer({ 
 					source 		= playerId, 
 					identifier 	= character_id,
-                    phoneNumber = result.phone_number
+                                        phoneNumber     = result.phone_number
 				})
             end
             TriggerEvent('pe-core:playerLoaded', playerId, identifier)
         else
-            Utils.Debug('inform', "Identifier ["..identifier.."] doesn't exist into the database.")
-            Utils.Debug('inform', "Inserting identifier ["..identifier.."] into the database.")
-            local phoneNumber = exports.npwd:generatePhoneNumber()
-            MySQL.insert('INSERT INTO ?? (??,??) VALUES (?,?)', {Database.playerTable, Database.identifierColumn, 'phone_number', identifier, phoneNumber}, function(character_id)
-                Utils.Debug('inform', "Inserted player into the database: {\n Identifier ["..identifier.."] \n Character ID ["..character_id.."] \n}")
-                exports.npwd:newPlayer({ 
-					source 		= playerId, 
-					identifier 	= character_id,
-                    phoneNumber = phoneNumber
-				})
+            if GetResourceState('npwd') == 'started' then
+                Utils.Debug('inform', "Identifier ["..identifier.."] doesn't exist into the database.")
+                Utils.Debug('inform', "Inserting identifier ["..identifier.."] into the database.")
+                local phoneNumber = exports.npwd:generatePhoneNumber()
+                MySQL.insert('INSERT INTO ?? (??,??) VALUES (?,?)', {Database.playerTable, Database.identifierColumn, 'phone_number', identifier, phoneNumber}, function(character_id)
+                    Utils.Debug('inform', "Inserted player into the database: {\n Identifier ["..identifier.."] \n Character ID ["..character_id.."] \n}")
+                    exports.npwd:newPlayer({ 
+					    source      = playerId, 
+					    identifier 	= character_id,
+                                            phoneNumber = phoneNumber
+				    })
+             end
                 TriggerEvent('pe-core:playerLoaded', playerId, identifier)
             end)
         end
