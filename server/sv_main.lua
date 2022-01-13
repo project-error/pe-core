@@ -27,9 +27,9 @@ AddEventHandler('pe-core:onPlayerJoined', function()
             if GetResourceState('npwd') == 'started' then
                 Utils.Debug('inform', 'NPWD enabled. Triggering server export ^2[npwd:newPlayer]^5.')
                 exports.npwd:newPlayer({ 
-					source 		= playerId, 
-					identifier 	= character_id,
-                                        phoneNumber     = result.phone_number
+                    source 		= playerId, 
+                    identifier 	= character_id,
+                    phoneNumber     = result.phone_number
 				})
             end
             TriggerEvent('pe-core:playerLoaded', playerId, identifier)
@@ -41,13 +41,13 @@ AddEventHandler('pe-core:onPlayerJoined', function()
                 MySQL.insert('INSERT INTO ?? (??,??) VALUES (?,?)', {Database.playerTable, Database.identifierColumn, 'phone_number', identifier, phoneNumber}, function(character_id)
                     Utils.Debug('inform', "Inserted player into the database: {\n Identifier ["..identifier.."] \n Character ID ["..character_id.."] \n}")
                     exports.npwd:newPlayer({ 
-					    source      = playerId, 
-					    identifier 	= character_id,
-                                            phoneNumber = phoneNumber
-				    })
-             end
-                TriggerEvent('pe-core:playerLoaded', playerId, identifier)
-            end)
+                        source      = playerId, 
+                        identifier 	= character_id,
+                        phoneNumber = phoneNumber
+                    })
+                end)
+            end
+            TriggerEvent('pe-core:playerLoaded', playerId, identifier)
         end
     end)
 end)
