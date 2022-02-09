@@ -12,7 +12,7 @@ Database.playerTable        = 'users'
 -- Debug Config
 
 Debug                       = {}
-Debug.debugLevel            = 2
+Debug.debugLevel            = 3
 Debug.successDebugColor     = "^2"
 Debug.informDebugColor      = "^5"
 Debug.errorDebugColor       = "^1"
